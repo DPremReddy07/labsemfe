@@ -9,18 +9,33 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
-    e.preventDefault();
-    try {
-      const data = await signup(username, email, password);
-      alert(data.message);
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      navigate("/login");
-    } catch {
-      alert("Failed to Sign Up, try again.");
+  e.preventDefault();
+  try {
+    const data = await signup(username, email, password);
+    alert(data.message);
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    navigate("/login");
+  } catch (error) {
+    console.error("Signup error:", error);
+
+    if (error.response) {
+      // Backend responded with an error (status code, message)
+      console.error("Backend response data:", error.response.data);
+      alert(`Signup failed: ${error.response.data.error || "Unknown error"}`);
+    } else if (error.request) {
+      // Request was made but no response received (network or CORS issue)
+      console.error("No response received:", error.request);
+      alert("No response from server. Check your network or server status.");
+    } else {
+      // Other errors
+      console.error("Error setting up request:", error.message);
+      alert(`Error: ${error.message}`);
     }
-  };
+  }
+};
+;
 
   return (
     <div style={styles.container}>
