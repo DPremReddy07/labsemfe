@@ -1,7 +1,7 @@
 // src/services/authService.js
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8808/api/auth"; // backend URL
+const API_BASE_URL = "http://localhost:30083/api/auth"; // backend URL
 
 // Signup request
 export const signup = async (username, email, password) => {
@@ -21,7 +21,7 @@ export const signup = async (username, email, password) => {
 export const login = async (username, password) => {
   try {
     const response = await axios.post(
-      "http://localhost:8808/api/auth/login",
+      "http://localhost:30083/api/auth/login",
       { username, password },
       {
         headers: { "Content-Type": "application/json" },
